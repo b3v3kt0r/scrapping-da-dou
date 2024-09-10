@@ -1,13 +1,11 @@
 import time
-from typing import Any, Union
+from typing import Any
 
 import scrapy
-from scrapy import Spider
 from scrapy.http import Response, HtmlResponse
 from selenium import webdriver
 from selenium.common import NoSuchElementException, ElementClickInterceptedException, ElementNotInteractableException
 from selenium.webdriver.common.by import By
-from twisted.internet.defer import Deferred
 
 from ..config import python_technologies
 
@@ -24,7 +22,7 @@ class VacanciesSpider(scrapy.Spider):
     def close(self, reason: str):
         self.driver.close()
 
-    def get_detail_page(self, response: Response, **kwargs):
+    def get_detail_page(self, response: Response):
         for vacancy in response.css(".l-vacancy"):
             detail_page_url = vacancy.css(".vt::attr(href)").get()
             self.log(f"Found detail page: {detail_page_url}")
@@ -52,7 +50,7 @@ class VacanciesSpider(scrapy.Spider):
             encoding="utf-8"
         )
 
-        yield from self.get_detail_page(selenium_response, **kwargs)
+        yield from self.get_detail_page(selenium_response)
 
     def parse_detail(self, response: Response):
 
