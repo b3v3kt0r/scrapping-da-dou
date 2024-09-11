@@ -12,11 +12,10 @@ BOT_NAME = "dou"
 SPIDER_MODULES = ["dou.spiders"]
 NEWSPIDER_MODULE = "dou.spiders"
 
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0"
-)
+# USER_AGENT = (
+#     "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0"
+# )
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -39,10 +38,10 @@ ROBOTSTXT_OBEY = False
 # TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-# DEFAULT_REQUEST_HEADERS = {
-#    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-#    "Accept-Language": "en",
-# }
+DEFAULT_REQUEST_HEADERS = {
+    "Accept-Language": "en",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:92.0) Gecko/20100101 Firefox/92.0"
+}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html

@@ -7,7 +7,7 @@ from selenium import webdriver
 from selenium.common import NoSuchElementException, ElementClickInterceptedException, ElementNotInteractableException
 from selenium.webdriver.common.by import By
 
-from ..config import python_technologies
+from ..config import python_technologies, english_levels
 
 
 class VacanciesSpider(scrapy.Spider):
@@ -27,7 +27,7 @@ class VacanciesSpider(scrapy.Spider):
             "https://jobs.dou.ua/vacancies/?category=Python&exp=5plus"
         ]
         for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
+            yield scrapy.Request(url=url, cookies={"lang": "en"},callback=self.parse)
 
     def close(self, reason: str):
         self.driver.close()
@@ -71,10 +71,19 @@ class VacanciesSpider(scrapy.Spider):
 
         found_technologies = [tech for tech in python_technologies if tech.lower() in full_text]
 
+        english_level = [level for level in english_levels if level.lower() in full_text]
+
+        salary = response.css("span.salary::text").get()
+
+        if salary:
+            salary = salary.replace("\xa0", " ").strip()
+
         yield {
             "title": response.css("h1::text").get(),
             "company": response.css(".l-n > a::text").get(),
             "city": response.css(".place::text").get(),
-            "technologies": found_technologies,
+            "technologies": ", ".join(found_technologies),
             "required_years": required_years,
+            "salary": salary,
+            "english_level": english_level,
         }

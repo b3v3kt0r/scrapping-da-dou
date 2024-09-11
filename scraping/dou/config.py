@@ -40,3 +40,5 @@ python_technologies = [
     "OOP",
     "asyncio",
 ]
+
+english_levels = ["Upper-Intermediate", "Advanced", "Intermediate", "Pre-Intermediate"]
