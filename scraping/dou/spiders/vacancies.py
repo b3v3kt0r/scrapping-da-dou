@@ -85,5 +85,5 @@ class VacanciesSpider(scrapy.Spider):
             "technologies": ", ".join(found_technologies),
             "required_years": required_years,
             "salary": salary,
-            "english_level": english_level,
+            "english_level": ", ".join(english_level),
         }
